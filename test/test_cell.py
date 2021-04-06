@@ -21,6 +21,24 @@ def inp_ranges(*rng):
 
 
 @ddt.ddt
+class TestCustom(unittest.TestCase):
+    @ddt.idata([
+        ('A3', '=SELECT(F1:F3)', {'F1:F3': [[1], [2], [3]]},
+         '<Ranges>(A3)=[[3]]'),
+        ('A3', '=SINGLE(F1:F3)', {'F1:F3': [[1], [2], [3]]},
+         '<Ranges>(A3)=[[3]]'),
+    ])
+    def test_ooo(self, case):
+        reference, formula, inputs, result = case
+        dsp = sh.Dispatcher()
+        cell = Cell(reference, formula).compile()
+        assert cell.add(dsp)
+        output = str(dsp(inputs)[cell.output])
+        self.assertEqual(
+            result, output,
+            'Formula({}): {} != {}'.format(formula, result, output)
+        )
+@ddt.ddt
 class TestCell(unittest.TestCase):
     @ddt.idata([
         ('A3', '=SINGLE(F1:F3)', {'F1:F3':[[1], [2], [3]]},
