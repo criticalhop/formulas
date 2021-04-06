@@ -75,11 +75,24 @@ def xsingle(cell, rng):
     return Error.errors['#VALUE!']
 
 
+def xselect(cell, rng):
+    if len(rng.ranges) == 1 and not rng.is_set and rng.value.shape[1] == 1:
+        rng = rng & Ranges((sh.combine_dicts(
+            rng.ranges[0], sh.selector(('r1', 'r2'), cell.ranges[0])
+        ),))
+        if rng.ranges:
+            return rng
+    return Error.errors['#VALUE!']
+
 FUNCTIONS['_XLFN.SINGLE'] = FUNCTIONS['SINGLE'] = {
     'extra_inputs': collections.OrderedDict([(CELL, None)]),
     'function': wrap_func(xsingle, ranges=True)
 }
 
+FUNCTIONS['_XLFN.SELECT'] = FUNCTIONS['SELECT'] = {
+    'extra_inputs': collections.OrderedDict([(CELL, None)]),
+    'function': wrap_func(xselect, ranges=True)
+}
 
 def _index(arrays, row_num, col_num, area_num, is_reference, is_array):
     err = get_error(row_num, col_num, area_num)
