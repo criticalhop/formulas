@@ -79,7 +79,7 @@ FUNCTIONS['_XLFN.SINGLE'] = FUNCTIONS['SINGLE'] = {
     'function': wrap_func(xsingle, ranges=True)
 }
 
-def xselect(cell, rng):
+def xselectif(cell, rng):
     if len(rng.ranges) == 1 and not rng.is_set and rng.value.shape[1] == 1:
         rng = rng & Ranges((sh.combine_dicts(
             rng.ranges[0], sh.selector(('r1', 'r2'), cell.ranges[0])
@@ -88,9 +88,9 @@ def xselect(cell, rng):
             return rng
     return Error.errors['#VALUE!']
 
-FUNCTIONS['SELECT'] = {
+FUNCTIONS['SELECTIF'] = {
     'extra_inputs': collections.OrderedDict([(CELL, None)]),
-    'function': wrap_func(xselect, ranges=True)
+    'function': wrap_func(xselectif, ranges=True)
 }
 
 def _index(arrays, row_num, col_num, area_num, is_reference, is_array):
