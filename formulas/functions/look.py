@@ -73,7 +73,11 @@ def xsingle(cell, rng):
         if rng.ranges:
             return rng
     return Error.errors['#VALUE!']
-
+    
+FUNCTIONS['_XLFN.SINGLE'] = FUNCTIONS['SINGLE'] = {
+    'extra_inputs': collections.OrderedDict([(CELL, None)]),
+    'function': wrap_func(xsingle, ranges=True)
+}
 
 def xselect(cell, rng):
     if len(rng.ranges) == 1 and not rng.is_set and rng.value.shape[1] == 1:
@@ -84,12 +88,7 @@ def xselect(cell, rng):
             return rng
     return Error.errors['#VALUE!']
 
-FUNCTIONS['_XLFN.SINGLE'] = FUNCTIONS['SINGLE'] = {
-    'extra_inputs': collections.OrderedDict([(CELL, None)]),
-    'function': wrap_func(xsingle, ranges=True)
-}
-
-FUNCTIONS['_XLFN.SELECT'] = FUNCTIONS['SELECT'] = {
+FUNCTIONS['SELECT'] = {
     'extra_inputs': collections.OrderedDict([(CELL, None)]),
     'function': wrap_func(xselect, ranges=True)
 }

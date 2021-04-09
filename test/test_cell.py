@@ -23,14 +23,14 @@ def inp_ranges(*rng):
 @ddt.ddt
 class TestCustom(unittest.TestCase):
     @ddt.idata([
-        ('A3', '=SELECT(F1:F2)', {'F1:F3': [[1], [2], [3]]},'<Ranges>(A3)=[[1]]'),
-        # ('A3', '=SINGLE(F1:F3)', {'F1:F3': [[1], [2], [3]]},'<Ranges>(A3)=[[3]]'),
+        # ('A3', '=SELECTIF(F1:F3)', {'F1:F3': [[1], [2], [3]]},'<Ranges>(A3)=[[1]]'),
+        ('A3', '=SINGLE(F1:F3)', {'F1:F3': [[1], [2], [3]]},'<Ranges>(A3)=[[3]]'),
     ])
     def test_ooo(self, case):
         reference, formula, inputs, result = case
         dsp = sh.Dispatcher()
         cell = Cell(reference, formula).compile()
-        assert cell.add(dsp)
+        cell.add(dsp)
         d = dsp(inputs)
         dd= d[cell.output]
         output=str(dd)
