@@ -36,6 +36,25 @@ FUNCTIONS['IF'] = {
     'solve_cycle': solve_cycle
 }
 
+def xselectif(condition, x=True, y=False):
+    print(f'select if')
+    if isinstance(condition, str):
+        return Error.errors['#VALUE!']
+    return x if condition else y
+
+# FUNCTIONS['SELECTIF'] = {
+#     'extra_inputs': collections.OrderedDict([(CELL, None)]),
+#     'function': wrap_func(xselectif, ranges=True)
+# }
+
+
+FUNCTIONS['SELECTIF'] = {
+    'function': wrap_ufunc(
+        xif, input_parser=lambda *a: a, return_func=value_return,
+        check_error=lambda cond, *a: get_error(cond)
+    ),
+    'solve_cycle': solve_cycle
+}
 
 def xifs(*cond_vals):
     if len(cond_vals) % 2:
