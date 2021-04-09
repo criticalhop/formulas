@@ -22,15 +22,47 @@ OPERATORS = collections.defaultdict(lambda: not_implemented)
 
 numeric_wrap = functools.partial(wrap_ufunc, return_func=value_return)
 
+def add_op(x, y):
+    print(f'x({x})+y({y})')
+    return x + y
+
+def sub_op(x, y):
+    print(f'x({x})-y({y})')
+    return x - y
+
+def minus_op(x):
+    print(f'-x({x})')
+    return -x
+
+
+def mul_op(x, y):
+    print(f'x({x})*y({y})')
+    return x * y
+
+def div_op(x, y):
+    print(f'x({x})/y({y})')
+    if y != 0:
+        return x / y
+    else:
+         return Error.errors['#DIV/0!']
+
+def pow_op(x, y):
+    print(f'x({x}) ** y({y})')
+    return x ** y
+
+def percent_op(x):
+    print(f'x({x}) %')
+    return x / 100.0
+
 # noinspection PyTypeChecker
 OPERATORS.update({k: numeric_wrap(v) for k, v in {
-    '+': lambda x, y: x + y,
-    '-': lambda x, y: x - y,
-    'U-': lambda x: -x,
-    '*': lambda x, y: x * y,
-    '/': lambda x, y: (x / y) if y else Error.errors['#DIV/0!'],
-    '^': lambda x, y: x ** y,
-    '%': lambda x: x / 100.0,
+    '+': lambda x, y: add_op(x, y),
+    '-': lambda x, y: sub_op(x, y),
+    'U-': lambda x: minus_op(x),
+    '*': lambda x, y: mul_op(x, y),
+    '/': lambda x, y: div_op(x, y),
+    '^': lambda x, y: pow_op(x, y),
+    '%': lambda x: percent_op(x),
 }.items()})
 OPERATORS['U+'] = wrap_ufunc(
     lambda x: x, input_parser=lambda *a: a, return_func=value_return

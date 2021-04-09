@@ -312,7 +312,12 @@ def wrap_ufunc(
 
     def safe_eval(*vals):
         try:
-            r = check_error(*vals) or func(*input_parser(*vals))
+            # r = check_error(*vals) or func(*input_parser(*vals))
+            r1 = check_error(*vals)
+            # v1 = vals[0]._selw_wrapped
+            r2 = func(*input_parser(*vals))
+            # r2 = func(*vals)
+            r = r1 or r2
             if check_nan and not isinstance(r, (XlError, str)):
                 r = (not np.isfinite(r)) and Error.errors['#NUM!'] or r
         except (ValueError, TypeError):

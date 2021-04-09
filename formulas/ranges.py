@@ -142,6 +142,8 @@ class Ranges:
             if not isinstance(value, Array):
                 if not np.ndim(value):
                     value = [[value]]
+                    # value = [[hyperc.poc_symex.HCProxy(
+                    #     wrapped=value, name=rng['name'], parent=None, place_id="__STATIC")]]
                 value = np.asarray(value, object)
             shape = _shape(**rng)
             value = _reshape_array_as_excel(value, shape)
