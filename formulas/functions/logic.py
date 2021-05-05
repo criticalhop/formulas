@@ -19,6 +19,7 @@ FUNCTIONS = {}
 
 
 def xif(condition, x=True, y=False):
+    print(f'IF')
     if isinstance(condition, str):
         return Error.errors['#VALUE!']
     return x if condition else y
@@ -50,11 +51,19 @@ def xselectif(condition, x=True, y=False):
 
 FUNCTIONS['SELECTIF'] = {
     'function': wrap_ufunc(
-        xif, input_parser=lambda *a: a, return_func=value_return,
+        xselectif, input_parser=lambda *a: a, return_func=value_return,
         check_error=lambda cond, *a: get_error(cond)
     ),
     'solve_cycle': solve_cycle
 }
+
+# FUNCTIONS['selectif'] = {
+#     'function': wrap_ufunc(
+#         xif, input_parser=lambda *a: a, return_func=value_return,
+#         check_error=lambda cond, *a: get_error(cond)
+#     ),
+#     'solve_cycle': solve_cycle
+# }
 
 def xifs(*cond_vals):
     if len(cond_vals) % 2:
