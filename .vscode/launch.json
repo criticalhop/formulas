@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Python: Текущий файл",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "justMyCode": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: PyTest test_cell.py",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "-s",
+                "test/test_excel.py"
+            ],
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "env": {}
+        },
+        {
+            "name": "Python: etable ",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "-s",
+                "test/test_etable.py::test_etable"
+            ],
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "env": {}
+        },
+        {
+            "name": "Python: test compile ",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "-s",
+                "test/test_compile.py::test_excel_model_compile"
+            ],
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "env": {}
+        },
+    ]
+}
