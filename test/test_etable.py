@@ -59,20 +59,20 @@ class ETable:
         #        xl_mdl.dsp.default_values[coord]['value'] = hyperc.poc_symex.HCProxy(
         #            wrapped=xl_mdl.cells[coord].value, name=coord, parent=None, place_id="__STATIC")
         xl_mdl.calculate()
-        code = defaultdict(list)
+        # code = defaultdict(list)
 
-        for node_key, node_val in xl_mdl.dsp.dmap.nodes.items():
-            if ('inputs' in node_val) and ('outputs' in node_val):
-                out_py = str_to_py(node_val['outputs'][0])
-                code[out_py].append(f'def {out_py}():')
-                code[out_py].append(f'    #{node_key}')
-                for input in node_val.inputs:
-                    cell = formulas.Parser().ast("="+list(formulas.Parser().ast(f'={input}')[1].compile().dsp.nodes.keys())[0].replace(" = -","=-"))[0][0].attr
-                    letter = cell.c1
-                    number = cell.r1
-                    sheet_name = str_to_py(cell.name)
-                    var_name = f'var_tbl_{sheet_name}__hct_direct_ref__{number}_{letter}'
-                    code[out_py].append(f'    {var_name} = HCT_STATIC_OBJECT.{sheet_name}_{number}.{letter}')
+        # for node_key, node_val in xl_mdl.dsp.dmap.nodes.items():
+        #     if ('inputs' in node_val) and ('outputs' in node_val):
+        #         out_py = str_to_py(node_val['outputs'][0])
+        #         code[out_py].append(f'def {out_py}():')
+        #         code[out_py].append(f'    #{node_key}')
+        #         for input in node_val.inputs:
+        #             cell = formulas.Parser().ast("="+list(formulas.Parser().ast(f'={input}')[1].compile().dsp.nodes.keys())[0].replace(" = -","=-"))[0][0].attr
+        #             letter = cell.c1
+        #             number = cell.r1
+        #             sheet_name = str_to_py(cell.name)
+        #             var_name = f'var_tbl_{sheet_name}__hct_direct_ref__{number}_{letter}'
+        #             code[out_py].append(f'    {var_name} = HCT_STATIC_OBJECT.{sheet_name}_{number}.{letter}')
 
 
  
