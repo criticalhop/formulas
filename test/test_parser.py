@@ -66,7 +66,10 @@ class TestParser(unittest.TestCase):
         ('=DAYS360( 10 , 2)', 'DAYS360(10,2)'),
         ('=SELECTFROMRANGE([Plus Ones])', 'SELECTFROMRANGE([PLUS ONES])'),
         ('=SELECTFROMRANGE(OnesTable[Plus Ones])', 'SELECTFROMRANGE(ONESTABLE[PLUS ONES])'),
-        ('=VLOOKUP(MiniTable[[#This Row],[Mini]], C5:D6, 2)', 'VLOOKUP(MINITABLE[[#THIS ROW],[MINI]],C5:D6,2)')
+        ('=VLOOKUP(MiniTable[[#This Row],[Mini]], C5:D6, 2)', 'VLOOKUP(MINITABLE[[#THIS ROW],[MINI]],C5:D6,2)'),
+        ("='[filename.xlsm]sheet1'!MiniTable[Mini]", "'[filename.xlsm]'!MINITABLE[MINI]"),
+        ("='[filename.xlsm]sheet1'!MiniTable[[#This Row],[Mini]]", "'[filename.xlsm]'!MINITABLE[[#THIS ROW],[MINI]]"),
+        ("='[file name.xlsm]sheet1'!MiniTable[[#This Row],[Mini]]", "'[file name.xlsm]'!MINITABLE[[#THIS ROW],[MINI]]")
     )
     def test_valid_formula(self, case):
         inputs, result = case

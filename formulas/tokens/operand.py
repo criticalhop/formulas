@@ -100,7 +100,7 @@ class Number(Operand):
 
 
 _re_ref = r'(?P<ref>[[:alpha:]_\\]+[[:alnum:]\.\_]*)'
-_re_structured_ref_full = r'(?P<ref>(?<!\!)[[A-Za-z_]+[[A-Za-z0-9_ \]\.\_@#]*(?!.*\()(?!.*\')(?!.*\!)])'
+_re_structured_ref_full = r'(?P<ref>[[A-Za-z_]+[[A-Za-z0-9_ \]\.\_@#]*(?!.*\()(?!.*\')(?!.*\!)])'
 _re_structured_ref_half = r'(?P<ref>\[[[A-Za-z0-9_ \]\.\_@]*)(?!.*\(])(?!.*\')(?!.*\!)'
 _re_sheet_id = r"""
     (?>
