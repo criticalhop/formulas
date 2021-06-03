@@ -63,7 +63,10 @@ class TestParser(unittest.TestCase):
         ('=10  ^  -  2', '10^u-2'),
         ('=10^- + -  + + +2', '10^u+2'),
         ('=ATAN2( 10 , 2)', 'ATAN2(10,2)'),
-        ('=DAYS360( 10 , 2)', 'DAYS360(10,2)')
+        ('=DAYS360( 10 , 2)', 'DAYS360(10,2)'),
+        ('=SELECTFROMRANGE([Plus Ones])', 'SELECTFROMRANGE([PLUS ONES])'),
+        ('=SELECTFROMRANGE(OnesTable[Plus Ones])', 'SELECTFROMRANGE(ONESTABLE[PLUS ONES])'),
+        ('=VLOOKUP(MiniTable[[#This Row],[Mini]], C5:D6, 2)', 'VLOOKUP(MINITABLE[[#THIS ROW],[MINI]],C5:D6,2)')
     )
     def test_valid_formula(self, case):
         inputs, result = case
