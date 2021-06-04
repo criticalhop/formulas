@@ -102,6 +102,7 @@ class Number(Operand):
 _re_ref = r'(?P<ref>[[:alpha:]_\\]+[[:alnum:]\.\_]*)'
 _re_structured_ref_full = r'(?P<ref>[[A-Za-z_]+[[A-Za-z0-9_ \]\.\_@#]*(?!.*\()(?!.*\')(?!.*\!)])'
 _re_structured_ref_full_thisrow = r'(?P<ref>[[A-Za-z_]+\[\#This\ Row\],[[A-Za-z0-9_ \]\.\_@#]*(?!.*\()(?!.*\')(?!.*\!)])'
+_re_structured_ref_full_thisrow_caps = r'(?P<ref>[[A-Za-z_]+\[\#THIS\ ROW\],[[A-Za-z0-9_ \]\.\_@#]*(?!.*\()(?!.*\')(?!.*\!)])'
 _re_structured_ref_half = r'(?P<ref>\[[[A-Za-z0-9_ \]\.\_@]*)(?!.*\(])(?!.*\')(?!.*\!)'
 _re_sheet_id = r"""
     (?>
@@ -155,6 +156,8 @@ _re_range = r"""
             %s
         |
             %s
+        |
+            %s
         )
     |
         (?>
@@ -171,7 +174,7 @@ _re_range = r"""
         )
     )
     (?![\(\w])
-""" % (_re_sheet_id, _re_structured_ref_full_thisrow, _re_structured_ref_full, _re_ref, _re_structured_ref_half)
+""" % (_re_sheet_id, _re_structured_ref_full_thisrow, _re_structured_ref_full_thisrow_caps, _re_structured_ref_full, _re_ref, _re_structured_ref_half)
 _re_range = regex.compile(
     r'^(?>(?P<indirect>INDIRECT\("{0}?"\))|{0})'.format(_re_range),
     regex.IGNORECASE | regex.X | regex.DOTALL
